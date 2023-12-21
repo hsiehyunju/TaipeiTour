@@ -10,18 +10,32 @@
         android:label="ListFragment" >
         <action
             android:id="@+id/action_listFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.taipeitour.DetailFragment"
-        android:label="DetailFragment" >
+        android:label="{title}">
         <action
             android:id="@+id/action_detailFragment_to_listFragment"
-            app:destination="@id/listFragment" />
+            app:destination="@id/listFragment"
+            app:enterAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_detailFragment_to_webViewFragment"
             app:destination="@id/webViewFragment" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="introduction"
+            app:argType="string" />
+        <argument
+            android:name="tel"
+            app:argType="string" />
+        <argument
+            android:name="address"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/webViewFragment"
