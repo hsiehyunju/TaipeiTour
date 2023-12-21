@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.taipeitour.databinding.FragmentListBinding
+import com.example.taipeitour.recycler.TourListAdapter
 import com.example.taipeitour.viewModel.ListViewModel
 
 /**
@@ -27,6 +28,18 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentListBinding.inflate(inflater, container, false)
+
+        val adapter = TourListAdapter()
+        this.binding.apply {
+            tourRecyclerView.adapter = adapter
+        }
+
+        // 觀察資料變化，更新 RecyclerView
+        viewModel.tourList.observe(viewLifecycleOwner) { list ->
+            val resultData = list.sortedBy { it.id }
+            adapter.submitList(resultData)
+        }
+
         return binding.root
     }
 
