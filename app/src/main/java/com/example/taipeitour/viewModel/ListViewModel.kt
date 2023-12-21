@@ -60,7 +60,16 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                                 images = item.images.map { image -> image.src }
                             )
 
-                            _tourListCache.add(tourItem)
+                            _tourListCache.indexOfFirst { it.id == tourItem.id }.let { index ->
+                                if (index != -1)
+                                {
+                                    _tourListCache.set(index, tourItem)
+                                }
+                                else
+                                {
+                                    _tourListCache.add(tourItem)
+                                }
+                            }
                         }
 
                         _tourList.postValue(_tourListCache)
