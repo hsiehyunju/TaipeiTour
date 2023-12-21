@@ -26,6 +26,11 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            binding.detailIntroduction.text = it.getString("introduction")
+            binding.detailAddress.text = it.getString("address")
+            binding.detailTel.text = it.getString("tel")
+        }
     }
 
     override fun onDestroyView() {
