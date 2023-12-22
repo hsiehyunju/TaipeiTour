@@ -14,7 +14,6 @@ import retrofit2.HttpException
 class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _tourListCache: MutableList<TourItem> = mutableListOf()
-
     private val _tourList = MutableLiveData<List<TourItem>>()
     val tourList: LiveData<List<TourItem>> get() = _tourList
 
@@ -24,6 +23,8 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     private var _callApiCount = 0
     /** 單次 Api 回傳的最大資料量 */
     private val _maxDataPerPage = 30
+    /** 資料語言 */
+    private var _dataLanguage = "en"
 
     init {
         // 初始化時下載數據
@@ -35,17 +36,16 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
      */
     private fun fetchData()
     {
-
         viewModelScope.launch {
 
             val numberOfPage = _callApiCount + 1
 
             try {
-                val response = repository.getTourDataRaw("zh-tw", numberOfPage)
+                val response = repository.getTourDataRaw(_dataLanguage, numberOfPage)
 
                 if (response.isSuccessful)
                 {
-                    LogTool.i("response is successful, ths page is " + numberOfPage)
+                    LogTool.i("response is successful, ths page is " + numberOfPage + " url is" + response.raw().request().url())
                     response.body()?.let {
                         for (item in it.data)
                         {
@@ -94,5 +94,17 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                 println("HTTP error code: $errorCode, message: $errorMessage, URL: $url")
             }
         }
+    }
+
+    /**
+     * 切換語言
+     * @param language 語言
+     */
+    fun changeLanguage(language: String)
+    {
+        _tourListCache.clear()
+        _callApiCount = 0
+        _dataLanguage = language
+        fetchData()
     }
 }
