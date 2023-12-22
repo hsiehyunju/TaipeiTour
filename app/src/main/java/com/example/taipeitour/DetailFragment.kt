@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.example.taipeitour.databinding.FragmentDetailBinding
 
 /**
@@ -30,6 +31,16 @@ class DetailFragment : Fragment() {
             binding.detailIntroduction.text = it.getString("introduction")
             binding.detailAddress.text = it.getString("address")
             binding.detailTel.text = it.getString("tel")
+
+            it.getString("url")?.let { url ->
+                binding.button.setOnClickListener { view ->
+                    var bundle = Bundle().apply {
+                        putString("url", url)
+                        putString("title", it.getString("title"))
+                    }
+                    Navigation.findNavController(binding.root).navigate(R.id.action_detailFragment_to_webViewFragment, bundle)
+                }
+            }
         }
     }
 

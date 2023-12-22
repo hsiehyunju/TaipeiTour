@@ -26,6 +26,10 @@ class WebViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        arguments?.let {
+            binding.webview.loadUrl(it.getString("url").toString())
+        }
     }
 
     override fun onDestroyView() {
