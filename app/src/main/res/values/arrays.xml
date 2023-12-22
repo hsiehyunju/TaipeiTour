@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tour_languages">
+        <item>zh-tw</item>
+        <item>zn-cn</item>
+        <item>en</item>
+        <item>ja</item>
+        <item>ko</item>
+        <item>th</item>
+        <item>vi</item>
+        <item>id</item>
+        <item>es</item>
+    </string-array>
+</resources>
