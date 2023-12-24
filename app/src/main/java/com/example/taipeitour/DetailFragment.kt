@@ -29,6 +29,8 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 先判斷有沒有參數，再將參數內資料綁定到 UI 上
         arguments?.let {
             binding.detailIntroduction.text = it.getString("introduction")
             binding.detailAddress.text = it.getString("address")
@@ -44,6 +46,7 @@ class DetailFragment : Fragment() {
                 }
             }
 
+            // 如果有 images list 就轉換並設定給 adapter
             it.getStringArrayList("images")?.let { list ->
                 val adapter = ViewPagerAdapter()
                 binding.detailViewpager.adapter = adapter
