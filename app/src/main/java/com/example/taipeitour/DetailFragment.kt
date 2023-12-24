@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.example.taipeitour.data.ViewPagerItem
 import com.example.taipeitour.databinding.FragmentDetailBinding
+import com.example.taipeitour.recycler.ViewPagerAdapter
 
 /**
  * 旅遊景點資訊的 Fragment
@@ -40,6 +42,12 @@ class DetailFragment : Fragment() {
                     }
                     Navigation.findNavController(binding.root).navigate(R.id.action_detailFragment_to_webViewFragment, bundle)
                 }
+            }
+
+            it.getStringArrayList("images")?.let { list ->
+                val adapter = ViewPagerAdapter()
+                binding.detailViewpager.adapter = adapter
+                adapter.submitList(list.map { imageURL -> ViewPagerItem(imageURL) })
             }
         }
     }
